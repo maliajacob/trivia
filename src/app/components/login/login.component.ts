@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from '../../services/login.service';
+import { Observable } from 'rxjs';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-login',
@@ -6,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent  implements OnInit {
+  user$: Observable<User | undefined> | undefined;
+  constructor(private loginService: LoginService) {
+    this.user$ = this.loginService.getUserOvservable();
+  }
 
-  constructor() { }
-
-  ngOnInit() {}
+  ngOnInit(): void {
+  }
 
 }
