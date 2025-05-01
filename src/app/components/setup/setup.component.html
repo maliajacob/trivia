@@ -1,3 +1,71 @@
-<p>
-  setup works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Setup Trivia Game</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Game Settings</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <!-- Number of Players -->
+      <div class="game-input">
+        <ion-select label="Number of Players" label-placement="floating" interface="popover" fill="outline" [(ngModel)]="numberOfPlayers" (ionChange)="onPlayersChange()">
+          <ion-select-option *ngFor="let player of [1, 2, 3]" [value]="player">{{ player }}</ion-select-option>
+        </ion-select>
+      </div>
+
+      <!-- Number of Questions -->
+      <div class="game-input">
+        <ion-input
+          type="number"
+          fill="outline"
+          [(ngModel)]="numberOfQuestions"
+          [min]="numberOfPlayers"
+          [step]="numberOfPlayers"
+          label="Number of Questions"
+          label-placement="floating"
+          placeholder="Enter a multiple of players"
+        ></ion-input>
+      </div>
+
+      <!-- Category -->
+      <div class="game-input">
+        <ion-select label="Category" label-placement="floating" fill="outline" [(ngModel)]="category">
+          <ion-select-option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</ion-select-option>
+        </ion-select>
+      </div>
+
+      <!-- Difficulty -->
+      <div class="game-input">
+        <ion-select label="Difficulty" label-placement="floating" fill="outline" [(ngModel)]="difficulty">
+          <ion-select-option value="easy">Easy</ion-select-option>
+          <ion-select-option value="medium">Medium</ion-select-option>
+          <ion-select-option value="hard">Hard</ion-select-option>
+        </ion-select>
+      </div>
+
+      <!-- Question Type -->
+      <div class="game-input">
+        <ion-select label="Question Type" label-placement="floating" fill="outline" [(ngModel)]="questionType">
+          <ion-select-option value="multiple">Multiple Choice</ion-select-option>
+          <ion-select-option value="boolean">True/False</ion-select-option>
+        </ion-select>
+      </div>
+
+      <!-- Select Users for Multiplayer -->
+      <div class="game-input">
+        <ion-select label="Players" label-placement="floating"fill="outline" [(ngModel)]="selectedUsers" [multiple]="true">
+          <ion-select-option *ngFor="let user of users" [value]="user.displayName">{{ user.displayName }}</ion-select-option>
+        </ion-select>
+      </div>
+      
+
+      <!-- Start Game Button -->
+      <ion-button expand="block" class="ion-color-white" (click)="startGame()">Start Game</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

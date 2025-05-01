@@ -1,0 +1,24 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 25px;
+  gap: 25px;
+}   
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  margin: 0 auto;
+  flex: 1;
+
+  ion-input {
+    margin-bottom: 20px !important;
+  }
+
+  .submit-button {
+    height: 50px;
+  }
+}
