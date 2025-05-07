@@ -57,14 +57,13 @@
       </div>
 
       <!-- Select Users for Multiplayer -->
-      <div class="game-input">
-        <ion-select label="Players" label-placement="floating"fill="outline" [(ngModel)]="selectedUsers" [multiple]="true">
-          <ion-select-option *ngFor="let user of users" [value]="user.displayName">{{ user.displayName }}</ion-select-option>
+      
+      <div class="game-input" *ngIf="numberOfPlayers > 1">
+        <ion-select label="Players" label-placement="floating" fill="outline" [(ngModel)]="selectedUsers" [multiple]="true">
+          <ion-select-option *ngFor="let user of usersNames" [value]="user.id">{{ user.name }}</ion-select-option>
         </ion-select>
       </div>
       
-
-      <!-- Start Game Button -->
       <ion-button expand="block" class="ion-color-white" (click)="startGame()">Start Game</ion-button>
     </ion-card-content>
   </ion-card>

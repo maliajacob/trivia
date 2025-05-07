@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
+import { SetupService } from '../../services/setup.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-setup',
@@ -14,7 +16,6 @@ import { FormsModule } from '@angular/forms';
   ]
 })
 export class SetupComponent implements OnInit {
-  // Form models
   numberOfPlayers: number = 1; 
   numberOfQuestions: number = 10; 
   category: string = '';
@@ -22,45 +23,26 @@ export class SetupComponent implements OnInit {
   questionType: string = 'multiple'; 
   users: Array<{ uid: string; displayName: string }> = []; 
   selectedUsers: string[] = []; 
+  categories: Array<{ id: string; name: string }> = []
+  usersNames: Array<{ id: string; name: string }> = []
 
-  // Categories (mock data or fetched dynamically)
-  categories = [
-    { id: '9', name: 'General Knowledge' },
-    { id: '10', name: 'Books' },
-    { id: '11', name: 'Film' },
-    { id: '12', name: 'Music' },
-    { id: '13', name: 'Musicals & Theatres' },
-    { id: '14', name: 'Television' },
-    { id: '15', name: 'Video Games' },
-    { id: '16', name: 'Board Games' },
-    { id: '17', name: 'Science & Nature' },
-    { id: '18', name: 'Computers' },
-    { id: '19', name: 'Mathematics' },
-    { id: '20', name: 'Mythology' },
-    { id: '21', name: 'Sports' },
-    { id: '22', name: 'Geography' },
-    { id: '23', name: 'History' },
-    { id: '24', name: 'Politics' },
-    { id: '25', name: 'Art' },
-    { id: '26', name: 'Celebrities' },
-    { id: '27', name: 'Animals' },
-    { id: '28', name: 'Vehicles' },
-    { id: '29', name: 'Comics' },
-    { id: '30', name: 'Gadgets' },
-    { id: '31', name: 'Japanese Anime & Manga' },
-    { id: '32', name: 'Cartoon & Animations' }
-  ];
+  constructor(private setupService: SetupService, private router: Router) {}
 
-  constructor() {}
+  getCookie(name: string): string | null {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? match[2] : null;
+  }
 
-  ngOnInit() {
-    // Mock user data (replace with Firestore fetch)
-    this.users = [
-      { uid: 'user1', displayName: 'Alice' },
-      { uid: 'user2', displayName: 'Bob' },
-      { uid: 'user3', displayName: 'Charlie' },
-      { uid: 'user4', displayName: 'Diana' }
-    ];
+  async ngOnInit() {
+    const uid = this.getCookie('uid');
+    if (!uid) {
+      this.router.navigate(['/login']);
+      return;
+    }
+    
+    this.usersNames = await this.setupService.getUsersNames(uid)
+
+    this.categories = await this.setupService.getCategories()
 
     // Set default category
     if (this.categories.length > 0) {
@@ -68,16 +50,14 @@ export class SetupComponent implements OnInit {
     }
   }
 
-  // Handle changes to the number of players
   onPlayersChange(): void {
-    // Reset selected users if the number of players changes
     if (this.numberOfPlayers === 1) {
       this.selectedUsers = [];
     }
   }
 
   // Start game logic
-  startGame(): void {
+  async startGame(): Promise<void> {
     if (this.numberOfQuestions % this.numberOfPlayers !== 0) {
       alert('The number of questions must be evenly divisible by the number of players.');
       return;
@@ -88,15 +68,13 @@ export class SetupComponent implements OnInit {
       return;
     }
 
-    // Log the game setup data (replace with Firestore save logic)
-    console.log('Game Setup:', {
-      numberOfPlayers: this.numberOfPlayers,
-      numberOfQuestions: this.numberOfQuestions,
-      category: this.category,
-      difficulty: this.difficulty,
-      questionType: this.questionType,
-      selectedUsers: this.selectedUsers
-    });
+    const uid = this.getCookie('uid');
+    if (uid) {
+      this.selectedUsers.push(uid); // Add the current user to the selected users
+    } 
+
+    // Send the game setup to the service (firebase)
+    await this.setupService.createGame(this.selectedUsers, this.category, this.difficulty, this.questionType, this.numberOfQuestions, )
 
     // Navigate to the game page or save the game setup
     alert('Game setup complete! Starting the game...');

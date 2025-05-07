@@ -22,7 +22,8 @@ export class LoginComponent {
   onGoogleLogin(): void {
     this.loginService.loginWithGoogle()
       .then(userCredential => {
-        console.log('Login success:', userCredential.user);
+        const user = userCredential.user;
+        document.cookie = `uid=${user.uid}; path=/;`;
         this.router.navigate(['/setup']); // Navigate to the home page after successful login
       })
       .catch(error => {

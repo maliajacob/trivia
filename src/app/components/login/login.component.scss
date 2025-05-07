@@ -7,18 +7,14 @@
   gap: 25px;
 }   
 
-.login-form {
-  display: flex;
-  flex-direction: column;
-  width: 500px;
-  margin: 0 auto;
-  flex: 1;
-
-  ion-input {
-    margin-bottom: 20px !important;
-  }
-
-  .submit-button {
-    height: 50px;
-  }
+.login-button {
+  height: 50px;
+  padding: 0px 20px;
+  border-radius: 10px;
+  color: white;
+  background-color: #4d8dff;
+  border: none;
+  font-size: 15px;
+  font-family: monospace;
 }
+
