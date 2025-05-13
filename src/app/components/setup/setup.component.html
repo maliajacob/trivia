@@ -13,7 +13,7 @@
     <ion-card-content>
       <!-- Number of Players -->
       <div class="game-input">
-        <ion-select label="Number of Players" label-placement="floating" interface="popover" fill="outline" [(ngModel)]="numberOfPlayers" (ionChange)="onPlayersChange()">
+        <ion-select label="Number of Players" label-placement="floating" fill="outline" [(ngModel)]="numberOfPlayers" (ionChange)="onPlayersChange()">
           <ion-select-option *ngFor="let player of [1, 2, 3]" [value]="player">{{ player }}</ion-select-option>
         </ion-select>
       </div>

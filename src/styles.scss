@@ -1,1 +1,30 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'DM Sans', sans-serif;
+}
+:root {
+    --ion-background-color: #fff !important;
+    --ion-text-color: #000000 !important;
+    --ion-color-success: #4d8dff !important;
+    --ion-text-color-step-150: black !important;
+    --ion-toolbar-background: #4d8dff !important;
+    --ion-color-step-750: rgba(0,0,0,0.4) !important;
+}
+
+.header {
+    font-weight: 700;
+}
+
+ion-button {
+    height: 50px;
+    border-radius: 10px;
+    color: white;
+    background-color: #4d8dff;
+    border: none;
+    font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    width: 100%;
+}
