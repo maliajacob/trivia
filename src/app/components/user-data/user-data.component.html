@@ -1,3 +1,28 @@
-<p>
-  user-data works!
-</p>
+<h1 class="ion-text-center">OVERALL RESULTS</h1>
+
+<div class="overall-results-container">
+  <ion-card class="ion-padding">
+    <ion-card-title>Total Games Played {{ totalGamesPlayed }}</ion-card-title>
+    <ion-card-content>
+      <ion-text>Games Won</ion-text><ion-text color="success"> {{ gamesWon }}</ion-text><br>
+      <ion-text>Games Lost</ion-text><ion-text color="danger"> {{ gamesLost }}</ion-text>
+    </ion-card-content>
+
+    <ion-card-title>Total Questions Answered {{ totalQuestionsAnswered }}</ion-card-title>
+    <ion-card-content>
+      <ion-text>Questions Answered Correctly</ion-text><ion-text color="success"> {{ questionsAnsweredCorrectly }}</ion-text><br>
+      <ion-text>Questions Answered Incorrectly</ion-text><ion-text color="danger"> {{ questionsAnsweredIncorrectly }}</ion-text>
+    </ion-card-content>
+
+    <ion-card-title>Personal Stats</ion-card-title>
+    <ion-card-content>
+      <ion-text>Best Category</ion-text><ion-text color="success"> {{ bestCategory }}</ion-text><br>
+      <ion-text>Worst Category</ion-text><ion-text color="danger"> {{ worstCategory }}</ion-text>
+    </ion-card-content>
+  </ion-card>
+  <div class="overall-results-button">
+    <ion-button class="ion-padding" fill="clear" [routerLink]="['/login']">LOGOUT</ion-button>
+    <ion-button class="ion-padding" [routerLink]="['/setup']">PLAY AGAIN</ion-button>
+
+  </div>
+</div>
