@@ -8,4 +8,4 @@ export const environment = {
     authDomain: "trivia-7ed24.firebaseapp.com",
     messagingSenderId: "1002185242692"
   }
-}
+};

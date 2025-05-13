@@ -1,3 +1,18 @@
-<p>
-  quiz-board works!
-</p>
+<div *ngIf="questions.length > 0">
+  <div *ngFor="let question of questions; let i = index">
+    <div *ngIf="i === currentQuestionIndex">
+      <p>{{ question.questionText }}</p>
+      <!-- Add more question details here, e.g., answer options -->
+    </div>
+  </div>
+
+  <!-- Navigation buttons to move through the questions -->
+  <button (click)="nextQuestion()">Next</button>
+  <button (click)="previousQuestion()">Previous</button>
+</div>
+
+<div *ngIf="questions.length === 0">
+  <p>Loading questions...</p>
+</div>
+
+

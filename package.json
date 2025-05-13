@@ -20,6 +20,7 @@
     "@angular/router": "^19.2.7",
     "@ionic/angular": "^8.5.4",
     "@ionic/cli": "^7.2.1",
+    "firebase": "^11.7.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

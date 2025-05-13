@@ -42,4 +42,13 @@ export class SetupService {
     return !snapshot.empty;
   }
 
+  async getCurrentUserGame(displayName: string) {
+    const gamesCollection = collection(this.firestore, 'games');
+    const getUserGames = query(gamesCollection, where('users', 'array-contains', displayName));
+    const snapshot = await getDocs(getUserGames);
+    const games = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    return games[games.length - 1]; // return the latest one
+  }
+  
+
 }
